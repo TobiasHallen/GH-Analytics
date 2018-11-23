@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.List;
 
 import org.eclipse.egit.github.core.*;
 import com.google.gson.*;
@@ -13,9 +14,12 @@ public class Interrogate
 		client.setCredentials("GithubTesteroni", "examplepassword123");
 
 		RepositoryService service = new RepositoryService();
-		for (Repository repo : service.getRepositories("GithubTesteroni"))
-		  System.out.println(repo.getName() + " Watchers: " + repo.getWatchers());
-
+		Repository repo = service.getRepository("eclipse", "egit-github");
+		List<Contributor> contributors = service.getContributors(repo, false);
+		for(int i = 0;i<contributors.size();i++)
+		{
+			System.out.println(contributors.get(i).getLogin());
+		}
 	}
 	
 }
