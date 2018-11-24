@@ -3,7 +3,7 @@ import java.util.List;
 
 public class ToJSON 
 {
-	public List<String> users;
+	public List<UserData> users;
 	public List<LinkIndex> index;
 	
 	public ToJSON(){
