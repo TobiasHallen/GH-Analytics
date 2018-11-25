@@ -191,6 +191,18 @@ function drawGraph() {
         })
         .style("stroke-opacity", .1)
 
+      repoLabel.filter(function(d) {return !connectedTo[d.index]})
+        .style("fill-opacity", 0.1);
+
+      repoLabel.filter(function(d) {return connectedTo[d.index]})
+        .attr("font-weight", "bold")
+		
+	  loginLabel.filter(function(d) {return !connectedTo[d.index]})
+        .style("fill-opacity", 0.1);
+
+      loginLabel.filter(function(d) {return connectedTo[d.index]})
+        .attr("font-weight", "bold")
+
       node.filter(function(d) {return connectedTo[d.index]})
         .style("stroke-width", 4);
 
