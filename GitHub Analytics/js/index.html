@@ -83,6 +83,8 @@ function drawGraph() {
       .style("fill", function(d) {return colour(d).toString();})
 	  .style("stroke", "White")
 	  .style("stroke-width", "2")
+	  .on("mouseover", function(d) {nodeToolTip(d);})
+      .on("mouseout", function(d) { nodeToolTipOff(d)})
       .call(d3.drag()
 		.on("start", dragstarted)
         .on("drag", dragged)
@@ -161,6 +163,38 @@ function drawGraph() {
 	  d.fx = null;
 	  d.fy = null;
 };
+
+    var nodeToolTipOff = function(z) {
+      link.style("stroke-opacity", 1.0);
+      node.style("stroke-width", 2)
+
+      repoLabel
+        .attr("font-weight", "normal")
+        .style("fill-opacity", 1)
+
+      loginLabel
+        .attr("font-weight", "normal")
+        .style("fill-opacity", 1)
+    };
+	
+    var nodeToolTip = function(x) {
+      var connectedTo = {};
+      connectedTo[x.index] = true;
+
+      link.filter(function(d) {
+          if (d.source == x) {connectedTo[d.target.index] = true
+            return false
+          } 
+		  else {
+            return true
+          }
+        })
+        .style("stroke-opacity", .1)
+
+      node.filter(function(d) {return connectedTo[d.index]})
+        .style("stroke-width", 4);
+
+    };
 
 
 
