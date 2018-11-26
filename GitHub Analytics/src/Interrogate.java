@@ -30,7 +30,10 @@ public class Interrogate
 		client.setCredentials("", "a7316ed0fdfc9d8bdfe96c2642953a45cae7e49a");
         DESTINATION = new File("").getAbsolutePath() + "/";
 		String user = "";	//set default user	
-		buildDatabase(user);
+		for(int i = 150; i<=250;i+=50)
+		{
+			buildDatabase(user, i);
+		}
 	}
 
 	public static List<String> getFollows(String user) throws IOException
@@ -52,7 +55,7 @@ public class Interrogate
 		return u.getPublicRepos()+u.getTotalPrivateRepos();
 	}
 
-	public static void buildDatabase(String user) throws IOException
+	public static void buildDatabase(String user, int limit) throws IOException
 	{
 		int limit = 50;
 		int i = 0;
@@ -101,10 +104,10 @@ public class Interrogate
 		tj.index = linkIndex;
 		System.out.println(tj.users.size());
 		System.out.println(tj.index.size());
-		writeJSON(tj);
+		writeJSON(tj, limit);
 	}
 	
-	static void writeJSON(ToJSON tj) throws IOException
+	static void writeJSON(ToJSON tj, int limit) throws IOException
 	{
         ObjectMapper mapper = new ObjectMapper();
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
