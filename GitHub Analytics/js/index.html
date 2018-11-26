@@ -49,6 +49,58 @@ var useGroup = svg.append("g");
 	
 var data = "data/50graph.json";
 
+d3.select("body")
+  .on("keydown", function() {
+    if (d3.event.keyCode == 49) { 
+	if(data!="data/50graph" +  ".json"){
+      svg.select("#graph").remove();
+          data = "data/50graph" +  ".json";
+          graphGroup = svg.append("g");
+          drawGraph();
+		  }
+    }
+	else if (d3.event.keyCode == 50) { 
+	if(data!="data/100graph" +  ".json"){
+      svg.select("#graph").remove();
+          data = "data/100graph" +  ".json";
+          graphGroup = svg.append("g");
+          drawGraph();
+		  }
+    }
+	else if (d3.event.keyCode == 51) { 
+	if(data!="data/150graph" +".json"){
+      svg.select("#graph").remove();
+          data = "data/150graph" +".json";
+          graphGroup = svg.append("g");
+          drawGraph();
+		  }
+    }
+	else if (d3.event.keyCode == 52) { 
+	if(data!="data/200graph" +".json"){
+      svg.select("#graph").remove();
+          data = "data/200graph" +".json";
+          graphGroup = svg.append("g");
+          drawGraph();
+		  }
+    }
+	else if (d3.event.keyCode == 53) { 
+	if(data!="data/250graph" + ".json"){
+      svg.select("#graph").remove();
+          data = "data/250graph" + ".json";
+          graphGroup = svg.append("g");
+          drawGraph();
+		  }
+    }
+	else if (d3.event.keyCode == 54) { 
+	if(data!="data/300graph" +".json"){
+      svg.select("#graph").remove();
+          data = "data/300graph" +".json";
+          graphGroup = svg.append("g");
+          drawGraph();
+		  }
+    }	
+  });
+
 drawGraph();
 
 
