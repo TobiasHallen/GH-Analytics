@@ -85,6 +85,9 @@ function drawGraph() {
 	  .style("stroke-width", "2")
 	  .on("mouseover", function(d) {nodeToolTip(d);})
       .on("mouseout", function(d) { nodeToolTipOff(d)})
+	  .on("click", function(d) {
+          window.open("https://github.com/" + d.login, "_blank");
+      })
       .call(d3.drag()
 		.on("start", dragstarted)
         .on("drag", dragged)
