@@ -45,7 +45,19 @@ var svg = d3.select("body").append("svg")
 var graphGroup = svg.append("g");
 var useGroup = svg.append("g");
 
-
+  useGroup.append("text")
+    .attr("x", 4)
+    .attr("y", 16)
+    .attr("font-family", "sans-serif")
+    .attr("font-size", 15)
+    .text("Usage Instructions: Click on a Node to open that user's repository. Keys 1-6 cycle through increasingly large userbases.");
+	
+  useGroup.append("text")
+    .attr("x", 4)
+    .attr("y", 35)
+    .attr("font-family", "sans-serif")
+    .attr("font-size", 15)
+    .text("1 - 50 users; 2 - 100 users; 3 - 150 users; 4 - 200 users; 5 - 250 users; 6 - 300 users");
 	
 var data = "GitHub Analytics/data/50graph.json";
 
