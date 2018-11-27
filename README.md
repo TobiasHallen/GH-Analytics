@@ -8,4 +8,4 @@ Occasionally when swapping between datasets quickly, the graph can become stuck 
 
 # Running Code:
 
-https://tobiashallen.github.io/GitHub_Analytics/
+https://tobiashallen.github.io/GH-Analytics/
