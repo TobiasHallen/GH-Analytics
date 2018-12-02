@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.*;
 import javax.swing.JOptionPane;
 import javax.swing.Spring;
+import javax.swing.JOptionPane;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -23,16 +24,32 @@ public class Interrogate
 {
 	static GitHubClient client = new GitHubClient();
 	public static String DESTINATION = "";
-	public static String CURRENT_DATE = "";
 	
 	public static void main(String[] args) throws IOException 
 	{
-		client.setCredentials("", "a7316ed0fdfc9d8bdfe96c2642953a45cae7e49a");
-        DESTINATION = new File("").getAbsolutePath() + "/";
-		String user = "";	//set default user	
-		for(int i = 150; i<=250;i+=50)
+		String userName = JOptionPane.showInputDialog("Please enter the Login of the user you would like to view (leave blank for default user):");
+		if ((userName == null)) 
 		{
-			buildDatabase(user, i);
+			System.exit(0);	
+		}
+		if(userName.equals(""))
+		{
+			userName = "GithubTesteroni";
+		}
+		String code = JOptionPane.showInputDialog("Please enter that user's personal access token (leave blank for default user token):");
+		if ((code == null)) 
+		{
+			System.exit(0);	
+		}
+		if(code.equals(""))
+		{
+				code = "a7316ed0fdfc9d8bdfe96c2642953a45cae7e49a";
+		}	
+		client.setCredentials(userName, code);
+        DESTINATION = new File("").getAbsolutePath() + "/data";		
+		for(int i = 50; i<=300;i+=50)
+		{
+			buildDatabase(userName, i);
 		}
 	}
 
@@ -57,7 +74,6 @@ public class Interrogate
 
 	public static void buildDatabase(String user, int limit) throws IOException
 	{
-		int limit = 50;
 		int i = 0;
 		List<LinkIndex> linkIndex = new ArrayList<LinkIndex>();
 		Queue<String> q = new LinkedList<>();
@@ -91,19 +107,8 @@ public class Interrogate
 				linkIndex.add(new LinkIndex(userIndex.get(user), userIndex.get(follow)));
 			}
 		}
-//		for (String key : userIndex.keySet()) {
-//			System.out.print(key+": ");
-//			System.out.println(userIndex.get(key));
-//		}
-//		System.out.println();
-//		for(LinkIndex x : linkIndex)
-//		{
-//			System.out.println(x.source+" : "+x.to);
-//		}
 		
 		tj.index = linkIndex;
-		System.out.println(tj.users.size());
-		System.out.println(tj.index.size());
 		writeJSON(tj, limit);
 	}
 	
@@ -112,8 +117,14 @@ public class Interrogate
         ObjectMapper mapper = new ObjectMapper();
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
         String output = mapper.writeValueAsString(tj);
-        BufferedWriter bw = new BufferedWriter(new FileWriter(DESTINATION + "/" +limit+ "graph" + ".json"));
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(DESTINATION + "/" +limit+ "graph" + ".json"))) 
+        {
             bw.write(output);
+        } 
+        catch (Exception e) 
+        {
+            System.out.println("Error creating file.");
+        }
        
 	}
 }
